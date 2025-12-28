@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mir Sadat Bin Rakib — Creative Designer</title>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Iconify -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<style>
+body {
+font-family: 'Inter', sans-serif;
+background-color: #08090A; 
+}
+.font-heading {
+font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.reveal {
+opacity: 0;
+transform: translateY(30px);
+transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+opacity: 1;
+transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+
+::-webkit-scrollbar {
+width: 8px;
+}
+::-webkit-scrollbar-track {
+background: #08090A;
+}
+::-webkit-scrollbar-thumb {
+background: #333;
+border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: #555;
+}
+
+.glass-panel {
+background: rgba(20, 20, 20, 0.4);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border: 1px solid rgba(255, 255, 255, 0.08);
+box-shadow: 0 0 0 1px rgba(0,0,0,0.2), 0 20px 40px -20px rgba(0,0,0,0.5);
+transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel:hover {
+border-color: rgba(255, 255, 255, 0.15);
+background: rgba(30, 30, 30, 0.5);
+transform: translateY(-4px);
+box-shadow: 0 0 0 1px rgba(0,0,0,0.3), 0 30px 60px -20px rgba(0,0,0,0.7);
+}
+
+.text-gradient {
+background: linear-gradient(to right, #fff, #a5a5a5);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+/* ENHANCED: Profile Card Hover */
+.profile-card:hover .profile-image {
+transform: scale(1.05);
+filter: grayscale(0);
+}
+.profile-card:hover .profile-overlay {
+background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+/* ENHANCED: Social Icon Effects */
+.social-icon {
+position: relative;
+overflow: hidden;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.social-icon::before {
+content: '';
+position: absolute;
+inset: -2px;
+background: linear-gradient(135deg, #3b82f6, #06b6d4);
+border-radius: inherit;
+opacity: 0;
+transition: opacity 0.3s;
+z-index: -1;
+}
+.social-icon:hover::before {
+opacity: 1;
+}
+.social-icon:hover {
+transform: translateY(-3px) scale(1.1);
+border-color: transparent;
+}
+
+/* ENHANCED: Experience Item Hover */
+.experience-item {
+position: relative;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.experience-item::before {
+content: '';
+position: absolute;
+left: -3px;
+top: 50%;
+transform: translateY(-50%);
+width: 3px;
+height: 0;
+background: linear-gradient(180deg, #3b82f6, #06b6d4);
+border-radius: 2px;
+transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.experience-item:hover::before {
+height: 70%;
+}
+.experience-item:hover {
+transform: translateX(8px);
+}
+
+/* ENHANCED: Latest Project Card */
+.latest-project-card {
+position: relative;
+overflow: hidden;
+}
+.latest-project-card::after {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+transition: left 0.6s;
+}
+.latest-project-card:hover::after {
+left: 100%;
+}
+
+/* ENHANCED: Toolkit Badge Hover */
+.toolkit-badge {
+position: relative;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.toolkit-badge:hover {
+transform: translateY(-2px);
+background: rgba(59, 130, 246, 0.1);
+border-color: rgba(59, 130, 246, 0.3);
+box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2);
+}
+
+/* ENHANCED: Service Card Glow */
+.service-card {
+position: relative;
+transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.service-card::before {
+content: '';
+position: absolute;
+inset: -1px;
+background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(6, 182, 212, 0.5));
+border-radius: inherit;
+opacity: 0;
+transition: opacity 0.5s;
+z-index: -1;
+filter: blur(10px);
+}
+.service-card:hover::before {
+opacity: 0.6;
+}
+
+/* ENHANCED: Service Image Zoom */
+.service-image {
+transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.service-card:hover .service-image {
+transform: scale(1.15);
+}
+
+/* ENHANCED: CTA Button Pulse */
+@keyframes pulse-glow {
+0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.6); }
+}
+.cta-button {
+animation: pulse-glow 3s ease-in-out infinite;
+transition: all 0.3s;
+}
+.cta-button:hover {
+transform: translateY(-2px) scale(1.05);
+box-shadow: 0 10px 40px rgba(255, 255, 255, 0.4);
+}
+
+/* ENHANCED: Nav Link Underline */
+nav a {
+position: relative;
+}
+nav a::after {
+content: '';
+position: absolute;
+bottom: -4px;
+left: 0;
+width: 0;
+height: 2px;
+background: linear-gradient(90deg, #3b82f6, #06b6d4);
+transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+nav a:hover::after {
+width: 100%;
+}
+
+/* ENHANCED: Logo Spin */
+.logo-icon {
+transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.logo-icon:hover {
+transform: rotate(360deg);
+}
+
+/* ENHANCED: Get in Touch Button */
+.contact-button {
+position: relative;
+overflow: hidden;
+transition: all 0.3s;
+}
+.contact-button::before {
+content: '';
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, #3b82f6, #06b6d4);
+opacity: 0;
+transition: opacity 0.3s;
+}
+.contact-button:hover::before {
+opacity: 0.2;
+}
+.contact-button:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* ENHANCED: Float Animation for Hero Badge */
+@keyframes float {
+0%, 100% { transform: translateY(0px); }
+50% { transform: translateY(-10px); }
+}
+.float-badge {
+animation: float 3s ease-in-out infinite;
+}
+</style>
+</head>
+<body class="text-neutral-300 antialiased selection:bg-neutral-200 selection:text-neutral-900 overflow-x-hidden">
+
+    <!-- Spline 3D Background -->
+    <div class="fixed inset-0 w-full h-full -z-10">
+        <!-- Overlay to ensure text readability -->
+        <div class="absolute inset-0 bg-black/40 pointer-events-none z-[1]"></div>
+        <!-- Spline Embed -->
+        <iframe src="https://my.spline.design/radialglass-20RYcJn9wbsEb5QEYkazHjpb" frameborder="0" width="100%" height="100%" class="w-full h-full object-cover"></iframe>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#08090A]/70 backdrop-blur-xl">
+        <div class="flex h-16 max-w-7xl mr-auto ml-auto pr-6 pl-6 items-center justify-between">
+            <a href="#" class="text-base font-medium tracking-tight text-white flex items-center gap-2 group">
+                <div class="w-6 h-6 rounded bg-neutral-100 flex items-center justify-center text-black font-bold text-xs group-hover:scale-90 transition-transform logo-icon">S</div>
+                <span class="group-hover:opacity-100 transition-opacity opacity-90">Mir Sadat Bin Rakib</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
+                <a href="#work" class="hover:text-white transition-colors">Work</a>
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+            </div>
+
+            <a href="mailto:hello@mirsadat.com" class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-white hover:bg-white/10 transition-colors contact-button">
+                <iconify-icon icon="solar:letter-linear" width="16" class=""></iconify-icon>
+                <span class="">Get in touch</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-4 sm:px-6 relative z-10">
+        <div class="max-w-7xl mr-auto ml-auto space-y-4">
+            
+            <!-- Hero Section -->
+            <section class="reveal md:py-20 active text-center max-w-4xl mr-auto ml-auto pt-12 pb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-black/30 text-xs font-medium text-neutral-400 mb-6 backdrop-blur-md float-badge">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    Available for new projects
+                </div>
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-heading font-medium tracking-tight text-white mb-6 leading-[1.1] drop-shadow-2xl">
+                    Digital designer crafting <br class="hidden sm:block">
+                    <span class="text-neutral-400">future-ready experiences.</span>
+                </h1>
+                <p class="text-base sm:text-lg text-neutral-300 max-w-xl mx-auto leading-relaxed drop-shadow-lg">
+                    I help companies build their brand and digital products with a focus on motion, interaction, and clean typography.
+                </p>
+            </section>
+
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 gap-x-4 gap-y-4" id="about">
+                
+                <!-- Profile Card (Left) - Compact Square -->
+                <div class="reveal md:col-span-1 lg:col-span-1 glass-panel rounded-3xl p-2 flex flex-col gap-2 self-start profile-card">
+                    <div class="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-800">
+                        <img src="https://ui-avatars.com/api/?name=S+R&size=400&background=1e293b&color=3b82f6&bold=true&format=svg&rounded=true" alt="Portrait" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700 profile-image">
+                        <div class="bg-gradient-to-t from-black/80 via-transparent to-transparent absolute top-0 right-0 bottom-0 left-0 profile-overlay transition-all duration-500"></div>
+                        <div class="absolute bottom-3 left-3">
+                            <h2 class="text-white font-medium text-sm tracking-tight">Mir Sadat Bin Rakib</h2>
+                            <p class="text-neutral-400 text-xs">Canada</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col pt-2 pr-3 pb-3 pl-3 gap-2">
+                        <div class="flex items-center justify-between text-xs font-medium text-neutral-400">
+                            <span>Follow me</span>
+                        </div>
+                        <div class="flex gap-2 justify-center">
+                            <a href="#" class="h-8 w-8 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-white hover:bg-white/10 transition-colors social-icon">
+                                <iconify-icon icon="simple-icons:x" width="13"></iconify-icon>
+                            </a>
+                            <a href="#" class="h-8 w-8 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-white hover:bg-white/10 transition-colors social-icon">
+                                <iconify-icon icon="simple-icons:dribbble" width="13"></iconify-icon>
+                            </a>
+                            <a href="#" class="h-8 w-8 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-white hover:bg-white/10 transition-colors social-icon">
+                                <iconify-icon icon="simple-icons:linkedin" width="13"></iconify-icon>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bio & Experience (Center/Right) - Expanded -->
+                <div class="reveal delay-100 md:col-span-2 lg:col-span-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    
+                    <!-- Bio & Tech Stack -->
+                    <div class="glass-panel lg:p-8 flex flex-col rounded-3xl pt-6 pr-6 pb-6 pl-6 justify-between">
+                        <div class="">
+                            <div class="flex items-center gap-2 mb-6 text-neutral-400">
+                                <iconify-icon icon="solar:user-id-linear" width="20"></iconify-icon>
+                                <span class="text-xs font-medium uppercase tracking-wider">About</span>
+                            </div>
+                            <p class="text-lg sm:text-xl text-neutral-200 leading-relaxed font-heading">
+                                With over 2 years of experience, I specialize in UI/UX and product design. I blend aesthetics with functionality to solve complex problems.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-10">
+                            <span class="text-xs font-medium text-neutral-500 mb-4 block uppercase tracking-wider">Toolkit</span>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2 hover:bg-white/10 transition-colors cursor-default toolkit-badge">
+                                    <iconify-icon icon="simple-icons:figma" class="text-neutral-300" width="14"></iconify-icon>
+                                    <span class="text-xs text-neutral-200">Figma</span>
+                                </div>
+                                <div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2 hover:bg-white/10 transition-colors cursor-default toolkit-badge">
+                                    <iconify-icon icon="simple-icons:framer" class="text-neutral-300" width="14"></iconify-icon>
+                                    <span class="text-xs text-neutral-200">Framer</span>
+                                </div>
+                                <div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2 hover:bg-white/10 transition-colors cursor-default toolkit-badge">
+                                    <iconify-icon icon="simple-icons:react" class="text-neutral-300" width="14"></iconify-icon>
+                                    <span class="text-xs text-neutral-200">React</span>
+                                </div>
+                                <div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2 hover:bg-white/10 transition-colors cursor-default toolkit-badge">
+                                    <iconify-icon icon="simple-icons:webflow" class="text-neutral-300" width="14"></iconify-icon>
+                                    <span class="text-xs text-neutral-200">Webflow</span>
+                                </div>
+                                <div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2 hover:bg-white/10 transition-colors cursor-default toolkit-badge">
+                                    <iconify-icon icon="simple-icons:blender" class="text-neutral-300" width="14"></iconify-icon>
+                                    <span class="text-xs text-neutral-200">Blender</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="glass-panel rounded-3xl p-6 lg:p-8">
+                        <div class="flex items-center gap-2 mb-6 text-neutral-400">
+                            <iconify-icon icon="solar:briefcase-linear" width="20"></iconify-icon>
+                            <span class="text-xs font-medium uppercase tracking-wider">Experience</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- Job 1 -->
+                            <div class="group flex items-center justify-between p-3 -mx-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5 experience-item">
+                                <div class="flex items-center gap-4">
+                                    <div class="h-10 w-10 rounded-lg bg-[#000] border border-white/10 flex items-center justify-center text-white shrink-0">
+                                        <iconify-icon icon="simple-icons:stripe" width="20"></iconify-icon>
+                                    </div>
+                                    <div class="">
+                                        <h4 class="text-sm font-medium text-white tracking-tight">XYZ Company</h4>
+                                        <p class="text-xs text-neutral-500 mt-0.5">Product Designer</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-neutral-500 font-medium">2023 — Pres</span>
+                            </div>
+
+                            <!-- Job 2 -->
+                            <div class="group flex items-center justify-between p-3 -mx-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5 experience-item">
+                                <div class="flex gap-4 gap-x-4 gap-y-4 items-center">
+                                    <div class="h-10 w-10 rounded-lg bg-[#000] border border-white/10 flex items-center justify-center text-white shrink-0">
+                                        <iconify-icon icon="simple-icons:vercel" width="20"></iconify-icon>
+                                    </div>
+                                    <div class="">
+                                        <h4 class="text-sm font-medium text-white tracking-tight">ABC Company</h4>
+                                        <p class="text-xs text-neutral-500 mt-0.5">Senior UI Designer</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-neutral-500 font-medium">2021 — 2023</span>
+                            </div>
+
+                            <!-- Job 3 -->
+                            <div class="group flex items-center justify-between p-3 -mx-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5 experience-item">
+                                <div class="flex items-center gap-4">
+                                    <div class="h-10 w-10 rounded-lg bg-[#000] border border-white/10 flex items-center justify-center text-white shrink-0">
+                                        <iconify-icon icon="simple-icons:linear" width="18"></iconify-icon>
+                                    </div>
+                                    <div class="">
+                                        <h4 class="text-sm font-medium text-white tracking-tight">DEF Company</h4>
+                                        <p class="text-xs text-neutral-500 mt-0.5">Product Visual</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-neutral-500 font-medium">2019 — 2021</span>
+                            </div>
+
+                            <!-- Job 4 -->
+                            <div class="group flex items-center justify-between p-3 -mx-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5 experience-item">
+                                <div class="flex items-center gap-4">
+                                    <div class="h-10 w-10 rounded-lg bg-[#000] border border-white/10 flex items-center justify-center text-white shrink-0">
+                                        <iconify-icon icon="simple-icons:spotify" width="20"></iconify-icon>
+                                    </div>
+                                    <div class="">
+                                        <h4 class="text-sm font-medium text-white tracking-tight">GHI Company</h4>
+                                        <p class="text-xs text-neutral-500 mt-0.5">Visual Intern</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-neutral-500 font-medium">2018 — 2019</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selected Work Preview (Large) -->
+                    <div class="lg:col-span-2 glass-panel rounded-3xl overflow-hidden group relative latest-project-card">
+                        <div class="absolute top-4 left-6 z-10 flex items-center gap-2">
+                             <div class="px-3 py-1 rounded-full bg-black/50 backdrop-blur border border-white/10 text-xs font-medium text-white flex items-center gap-1.5">
+                                <div class="w-1.5 h-1.5 rounded-full bg-cyan-400"></div>
+                                Latest Project
+                             </div>
+                        </div>
+                        <div class="p-6 pb-0 h-full flex flex-col">
+                            <div class="flex justify-between items-end mb-6 mt-8">
+                                <div>
+                                    <h3 class="text-xl text-white font-medium tracking-tight">Finance Dashboard</h3>
+                                    <p class="text-sm text-neutral-400 mt-1">Product design for a fintech unicorn</p>
+                                </div>
+                                <div class="h-10 w-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all">
+                                    <iconify-icon icon="solar:arrow-right-up-linear" width="20"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="relative flex-1 rounded-t-lg overflow-hidden border-t border-l border-r border-white/10 bg-neutral-900 shadow-2xl translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity" alt="Dashboard">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services Section -->
+            <div class="py-20" id="services">
+                <div class="reveal mb-10 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-heading font-medium text-white tracking-tight">Services</h2>
+                        <p class="text-sm text-neutral-400 mt-1">Design solutions for every stage.</p>
+                    </div>
+                    <a href="#contact" class="text-xs text-white border-b border-white/30 pb-0.5 hover:border-white transition-colors">View pricing</a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    
+                    <!-- Service 1 -->
+                    <div class="reveal glass-panel rounded-3xl p-6 group hover:-translate-y-1 transition-transform duration-300 service-card">
+                        <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-neutral-800 to-black border border-white/10 flex items-center justify-center text-white mb-6 group-hover:border-neutral-600 transition-colors">
+                            <iconify-icon icon="solar:monitor-smartphone-linear" width="20"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg text-white font-medium mb-2 tracking-tight">Web Design</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            High-converting landing pages and marketing sites. I focus on storytelling and visual hierarchy to drive results.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 mt-auto">
+                            <div class="h-20 bg-neutral-900 rounded-lg border border-white/5 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity service-image" alt="Web">
+                            </div>
+                            <div class="h-20 bg-neutral-900 rounded-lg border border-white/5 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity service-image" alt="Web 2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="reveal delay-100 glass-panel rounded-3xl p-6 group hover:-translate-y-1 transition-transform duration-300 service-card">
+                        <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-neutral-800 to-black border border-white/10 flex items-center justify-center text-white mb-6 group-hover:border-neutral-600 transition-colors">
+                            <iconify-icon icon="solar:figma-file-linear" width="20"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg text-white font-medium mb-2 tracking-tight">Product Design</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            Scalable design systems and intuitive user interfaces for SaaS products. From wireframes to high-fidelity prototyping.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 mt-auto">
+                             <div class="h-20 bg-neutral-900 rounded-lg border border-white/5 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity service-image" alt="SaaS">
+                            </div>
+                            <div class="h-20 bg-neutral-900 rounded-lg border border-white/5 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity service-image" alt="App">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="reveal delay-200 glass-panel rounded-3xl p-6 group hover:-translate-y-1 transition-transform duration-300 service-card">
+                        <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-neutral-800 to-black border border-white/10 flex items-center justify-center text-white mb-6 group-hover:border-neutral-600 transition-colors">
+                            <iconify-icon icon="solar:pallete-2-linear" width="20"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg text-white font-medium mb-2 tracking-tight">Brand Identity</h3>
+                        <p class="text-sm text-neutral-400 leading-relaxed mb-6">
+                            Distinctive logos and comprehensive brand guidelines that help your business stand out in a crowded market.
+                        </p>
+                        <div class="grid grid-cols-2 gap-2 mt-auto">
+                             <div class="h-20 bg-neutral-900 rounded-lg border border-white/5 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity service-image" alt="Brand">
+                            </div>
+                            <div class="h-20 bg-neutral-900 rounded-lg border border-white/5 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&auto=format&fit=crop&q=80" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity service-image" alt="Brand 2">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="reveal glass-panel rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden" id="contact">
+                <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none"></div>
+                <div class="relative z-10 max-w-2xl mx-auto">
+                    <h2 class="text-3xl sm:text-4xl text-white font-medium font-heading tracking-tight mb-4">Ready to start your project?</h2>
+                    <p class="text-neutral-400 text-sm sm:text-base mb-8">
+                        I'm currently available for freelance work. Let's create something meaningful together.
+                    </p>
+                    <a href="mailto:hello@mirsadat.com" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors cta-button">
+                        <span class="">hello@mirsadat.com</span>
+                        <iconify-icon icon="solar:arrow-right-linear" width="16"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-[#08090A]/90 backdrop-blur-xl relative z-20">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div class="">
+                    <h3 class="text-lg font-medium text-white tracking-tight">Mir Sadat Bin Rakib</h3>
+                    <p class="text-neutral-500 text-xs mt-1">© 2024. All rights reserved.</p>
+                </div>
+                
+                <div class="flex gap-6 text-sm text-neutral-400">
+                    <a href="#" class="hover:text-white transition-colors">X</a>
+                    <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-white transition-colors">Dribbble</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body></html>
